@@ -1,6 +1,6 @@
 class DirectorsController < ApplicationController
   def index
-    directors = Director.all
+    @director = Director.all
 
     render("director_templates/index.html.erb")
   end
@@ -8,7 +8,7 @@ class DirectorsController < ApplicationController
   def show
     @director = Director.find(params.fetch("id_to_display"))
 
-    render("director_templates/show.html.erb")
+    render("director_templates/show_details.html.erb")
   end
 
   def new_form
@@ -16,14 +16,16 @@ class DirectorsController < ApplicationController
   end
 
   def create_row
-    @director = Director.new
+    p = Director.new
 
-    @director.dob = params.fetch("the_dob")
-    @director.name = params.fetch("the_name")
-    @director.bio = params.fetch("the_bio")
-    @director.image_url = params.fetch("the_image_url")
-
-    redirect_to("/directors", :notice => "Director created successfully.")
+    p.dob = params.fetch("dob")
+    p.name = params.fetch("name")
+    p.bio = params.fetch("bio")
+    p.image_url = params.fetch("the_source")
+  
+    p.save
+    
+    redirect_to("/directors", { :notice => "Director created successfully." })
   end
 
   def edit_form
@@ -33,20 +35,23 @@ class DirectorsController < ApplicationController
   end
 
   def update_row
-    @director = Director.find(params.fetch("id_to_modify"))
+    director_id = params.fetch("id_to_modify")
+    @director = Director.find(director_id)
 
-    @director.dob = params.fetch(dob)
-    @director.name = params.fetch(name)
-    @director.bio = params.fetch(bio)
-    @director.image_url = params.fetch(image_url)
-    @save
+    @director.dob = params.fetch("dob")
+    @director.name = params.fetch("name")
+    @director.bio = params.fetch("bio")
+    @director.image_url = params.fetch("image_url")
+    @director.save
 
-    redirect_to("/directors/#{@director.id}", :notice => "Director updated successfully.")
+    redirect_to("/directors/" + director_id, :notice => "Director updated successfully.")
   end
 
   def destroy_row
     @director = Director.find(params.fetch("id_to_remove"))
 
-    redirect_to("/directors", :notice => "Director deleted successfully.")
+    @director.destroy
+    
+    redirect_to("/directors", { :notice => "Director deleted successfully." })
   end
 end

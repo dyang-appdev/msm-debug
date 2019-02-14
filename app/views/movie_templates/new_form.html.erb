@@ -11,7 +11,7 @@
       Title
     </label>
 
-    <input type="text" id="title" name="title" class="form-control" value="<%= @movie.title %>">
+    <input type="text" id="title" name="title" class="form-control" placeholder="title">
   </div>
 
   <!-- Label and input for year -->
@@ -20,7 +20,7 @@
       Year
     </label>
 
-    <input type="text" id="year" name="year" class="form-control" value="<%= @movie.year %>">
+    <input type="text" id="year" name="year" class="form-control" placeholder="year">
   </div>
 
   <!-- Label and input for duration -->
@@ -29,7 +29,7 @@
       Duration
     </label>
 
-    <input type="text" id="duration" name="duration" class="form-control" value="<%= @movie.duration %>">
+    <input type="text" id="duration" name="duration" class="form-control" placeholder="movie duration (min)">
   </div>
 
   <!-- Label and input for description -->
@@ -38,7 +38,7 @@
       Description
     </label>
 
-    <textarea id="description" name="description" class="form-control" rows="3"><%= @movie.description %></textarea>
+    <textarea id="description" name="description" class="form-control" rows="3" placeholder="description"></textarea>
   </div>
 
   <!-- Label and input for image_url -->
@@ -47,7 +47,7 @@
       Image url
     </label>
 
-    <input type="text" id="image_url" name="image_url" class="form-control" value="<%= @movie.image_url %>">
+    <input type="text" id="image_url" name="image_url" class="form-control" placeholder="image url">
   </div>
 
   <button class="btn btn-block btn-outline-secondary">

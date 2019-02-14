@@ -16,6 +16,28 @@ class MoviesController < ApplicationController
   end
 
   def create_row
+    p = Movie.new
+    
+    p.title = params.fetch("title")
+    p.year = params.fetch("year")
+    p.duration = params.fetch("duration")
+    p.description = params.fetch("description")
+    p.image_url = params.fetch("image_url")
+    p.save
+
+    redirect_to("/movies", :notice => "Movie created successfully.")
+  end
+
+  def edit_form
+    movie_id = params.fetch("prefill_with_id")
+    @movie = Movie.find(movie_id)
+    
+    render("movie_templates/edit_form.html.erb")
+  end
+
+  def update_row
+    movie_id = params.fetch("id_to_modify")
+    @movie = Movie.find(movie_id)
     @movie.title = params.fetch("title")
     @movie.year = params.fetch("year")
     @movie.duration = params.fetch("duration")
@@ -23,23 +45,7 @@ class MoviesController < ApplicationController
     @movie.image_url = params.fetch("image_url")
     @movie.save
 
-    redirect_to("/movies", :notice => "Movie created successfully.")
-  end
-
-  def edit_form
-    @movie = Movie.find(params.fetch("prefill_with_id"))
-
-    render("movie_templates/edit_form.html.erb")
-  end
-
-  def update_row
-    @movie.title = params.fetch("title")
-    @movie.year = params.fetch("year")
-    @movie.duration = params.fetch("duration")
-    @movie.description = params.fetch("description")
-    @movie.image_url = params.fetch("image_url")
-
-    redirect_to("/movies/#{@movie.id}", :notice => "Movie updated successfully.")
+    redirect_to("/movies/" + movie_id, { :notice => "Movie updated successfully."})
   end
 
   def destroy_row
